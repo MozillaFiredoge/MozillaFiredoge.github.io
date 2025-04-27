@@ -1,367 +1,996 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
+<html class="writer-html5" lang="zh">
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
-      <link rel="shortcut icon" href="img/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="群峦格雷(TFG)服务器官方指南 - 硬核科技生存体验"
+    />
+    <link rel="shortcut icon" href="pics/icon.png" />
     <title>群峦格雷服务器指南</title>
-    <link rel="stylesheet" href="css/theme.css" />
-    <link rel="stylesheet" href="css/theme_extra.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-    
-    <!-- 新增的样式 -->
+
+    <!-- 核心样式 -->
     <style>
-        /* Windows风格半透明视窗 */
-        .wy-nav-side, .wy-nav-content-wrap, .wy-nav-top, 
-        .wy-side-scroll, .wy-side-nav-search, .wy-menu,
-        .rst-content, .wy-breadcrumbs, .document {
-            background-color: rgba(30, 30, 40, 0.85) !important;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
+      @font-face {
+        font-family: "Minecraft AE";
+        src: url("fonts/Minecraft_AE.ttf");
+      }
+      :root {
+        --primary-color: #2a9d8f;
+        --secondary-color: #264653;
+        --accent-color: #e9c46a;
+        --text-light: #f8f9fa;
+        --bg-dark: #1a1a1a;
+      }
+      /* —— 顶部锚点导航 —— */
+      .quick-nav {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 1200px;
+        background: rgba(26, 26, 26, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 100;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .quick-nav ul {
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        margin: 0;
+        list-style: none;
+      }
+      .quick-nav li + li {
+        margin-left: 1rem;
+      }
+      .quick-nav a {
+        color: var(--text-light);
+        font-weight: bold;
+        text-decoration: none;
+        padding: 0.5rem;
+        transition: color 0.2s, background 0.2s;
+      }
+      .quick-nav a:hover {
+        color: var(--accent-color);
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+
+      /* 给内容留出顶部空间，否则会被导航遮挡 */
+      .wy-nav-content {
+        padding-top: 4rem; /* 与导航高度相当 */
+      }
+
+      body {
+        font-family: "Minecraft AE", sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-light);
+        line-height: 1.6;
+      }
+
+      .wy-nav-content {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        padding: 2rem 4rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        opacity: 0.9;
+      }
+
+      .wy-nav-content::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: url("pics/particle.png"),
+          radial-gradient(
+            circle at 10% 20%,
+            var(--primary-color) 0%,
+            var(--secondary-color) 100%
+          );
+        opacity: 0.15;
+        animation: particleMove 20s linear infinite;
+      }
+
+      @keyframes particleMove {
+        0% {
+          background-position: 0 0, 0 0;
         }
-        
+        100% {
+          background-position: 1000px 1000px, 200px 200px;
+        }
+      }
+      h2,
+      h3 {
+        font-weight: 700;
+        margin-top: 2rem;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        border-left: 5px solid var(--accent-color);
+        padding-left: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      h2 {
+        color: var(--accent-color);
+        font-size: 2rem;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      /* 卡片式布局 */
+      .feature-card {
+        background: rgba(40, 40, 40, 0.9);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      }
+
+      /* 下载按钮 */
+      .download-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        border: 2px solid var(--accent-color);
+        border-radius: 50px;
+        color: white;
+        font-weight: bold;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin: 1rem 0;
+      }
+
+      .download-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(234, 196, 106, 0.3);
+      }
+
+      .download-btn img {
+        height: 30px;
+        margin-right: 1rem;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+      }
+
+      /* 科技树时间线 */
+      .tech-tree {
+        display: flex;
+        justify-content: space-between;
+        margin: 3rem 0;
+        flex-wrap: wrap;
+      }
+
+      .era {
+        flex: 1;
+        position: relative;
+        min-width: 120px;
+        margin: 0.5rem;
+      }
+
+      .era-title {
+        text-align: center;
+        padding: 1rem;
+        background: var(--era-color);
+        color: white;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+
+      .era-progress {
+        height: 6px;
+        background: linear-gradient(
+          90deg,
+          var(--era-color) 50%,
+          rgba(255, 255, 255, 0.1) 50%
+        );
+        background-size: 20px 100%;
+        animation: progressScroll 2s linear infinite;
+      }
+
+      @keyframes progressScroll {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 40px 0;
+        }
+      }
+
+      /* 响应式设计 */
+      @media (max-width: 768px) {
         .wy-nav-content {
-            background: transparent !important;
+          padding: 1.5rem;
         }
-        
-        /* 星空背景容器 */
-        #starfield {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(to bottom, #000428, #004e92);
-            overflow: hidden;
+
+        h1 {
+          font-size: 2rem;
         }
-        
-        /* 改进的链接样式 */
-        a {
-            color: #4fc3f7;
-            transition: all 0.3s ease;
+
+        h2 {
+          font-size: 1.6rem;
         }
-        
-        a:hover {
-            color: #29b6f6;
-            text-decoration: underline;
+
+        .tech-tree {
+          flex-direction: column;
         }
-        
-        /* 改进的标题样式 */
-        h1, h2, h3, h4, h5, h6 {
-            color: #e3f2fd;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+        .era {
+          margin-bottom: 1.5rem;
         }
-        
-        /* 改进的代码块样式 */
-        code {
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            padding: 2px 4px;
+      }
+      /* —— 活动日历 —— */
+      .event-list {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+      }
+      .event-list li {
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        display: flex;
+        justify-content: space-between;
+      }
+      .event-list li strong {
+        color: var(--accent-color);
+      }
+
+      /* —— 视频预告 —— */
+      .video-trailer {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+      .video-trailer iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* —— 插件介绍 —— */
+      .plugin-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      .plugin-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        transition: transform 0.3s;
+      }
+      .plugin-item img {
+        max-width: 50px;
+        margin-bottom: 0.5rem;
+      }
+      .plugin-item:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      /* —— FAQ 折叠 —— */
+      .faq-item {
+        margin-bottom: 1rem;
+      }
+      .faq-item summary {
+        cursor: pointer;
+        font-weight: bold;
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+      }
+      .faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq-item[open] summary {
+        background: var(--primary-color);
+        color: #fff;
+      }
+      .faq-item p {
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        margin: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      /* 特征网格布局 */
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .feature-cell {
+        background: linear-gradient(145deg, #2d2d2d 0%, #1a1a1a 100%);
+        border-radius: 12px;
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .feature-cell:hover {
+        transform: translateY(-5px) scale(1.02);
+      }
+
+      /* 图标悬停特效 */
+      .feature-icon {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1rem;
+      }
+
+      .hover-glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 50% 50%,
+          rgba(233, 196, 106, 0.4) 0%,
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .feature-cell:hover .hover-glow {
+        opacity: 1;
+      }
+
+      /* 工业动画特效 */
+      .industrial-animate {
+        animation: factoryHum 2s ease-in-out infinite;
+      }
+
+      @keyframes factoryHum {
+        0%,
+        100% {
+          transform: translateY(0);
         }
-        
-        /* 改进的列表样式 */
-        ul, ol {
-            padding-left: 20px;
+        50% {
+          transform: translateY(-3px);
         }
-        
-        li {
-            margin-bottom: 8px;
+      }
+
+      .steam-effect {
+        position: absolute;
+        width: 120%;
+        height: 40px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.1) 50%,
+          transparent 100%
+        );
+        animation: steamFlow 3s linear infinite;
+      }
+
+      @keyframes steamFlow {
+        0% {
+          transform: translateX(-100%);
         }
-        
-        /* 响应式调整 */
-        @media (max-width: 768px) {
-            .wy-nav-side, .wy-nav-content-wrap {
-                border-radius: 0;
-            }
+        100% {
+          transform: translateX(100%);
         }
+      }
+
+      /* 科技进度进度条 */
+      .tech-progress-container {
+        position: relative;
+        margin-top: 2rem;
+      }
+
+      .tech-slider {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 2;
+      }
+
+      .era-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        border-radius: 12px;
+        transition: background-image 0.5s ease;
+        z-index: -1;
+      }
+
+      .era-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+        color: var(--accent-color);
+        font-size: 0.9em;
+      }
+
+      /* 隐藏默认滑动条样式 */
+      .tech-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 16px;
+        height: 16px;
+      }
+
+      /* 时代背景图配置 */
+      .era-background[data-era="stone"] {
+        background-image: url("pics/era_stone.png");
+      }
+      .era-background[data-era="steam"] {
+        background-image: url("pics/era_steam.png");
+      }
+      .era-background[data-era="electric"] {
+        background-image: url("pics/era_electric.png");
+      }
+      .era-background[data-era="info"] {
+        background-image: url("pics/era_info.png");
+      }
+      /* 添加颗粒滤镜增强质感 */
+      .era-background::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url("pics/noise.png");
+        opacity: 0.1;
+        mix-blend-mode: overlay;
+      }
+
+      /* 时代标签动画 */
+      .era-marker span {
+        transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      }
+
+      .tech-slider:active ~ .tech-progress .era-marker span {
+        transform: scale(1.2) rotate(2deg);
+      }
     </style>
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "\u4e3b\u9875";
-        var mkdocs_page_input_path = "index.md";
-        var mkdocs_page_url = null;
-      </script>
-    
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
 
-<body class="wy-body-for-nav" role="document">
-    <!-- 星空背景 -->
-    <div id="starfield"></div>
-    
-    <!-- 星空背景动画脚本 -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const starfield = document.getElementById('starfield');
-            const starCount = 200;
-            
-            // 创建星星
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                
-                // 随机位置
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                
-                // 随机大小
-                const size = Math.random() * 3;
-                
-                // 随机透明度
-                const opacity = Math.random() * 0.8 + 0.2;
-                
-                // 随机动画持续时间
-                const duration = Math.random() * 10 + 5;
-                
-                // 随机延迟
-                const delay = Math.random() * 5;
-                
-                star.style.cssText = `
-                    position: absolute;
-                    left: ${x}%;
-                    top: ${y}%;
-                    width: ${size}px;
-                    height: ${size}px;
-                    background-color: white;
-                    border-radius: 50%;
-                    opacity: ${opacity};
-                    box-shadow: 0 0 ${size * 2}px white;
-                    animation: twinkle ${duration}s infinite ${delay}s;
-                `;
-                
-                starfield.appendChild(star);
-            }
-            
-            // 创建流星
-            function createShootingStar() {
-                const shootingStar = document.createElement('div');
-                shootingStar.className = 'shooting-star';
-                
-                const x = Math.random() * 100;
-                const y = Math.random() * 30;
-                const duration = Math.random() * 3 + 1;
-                const delay = Math.random() * 15;
-                const size = Math.random() * 3 + 1;
-                const length = Math.random() * 100 + 50;
-                
-                shootingStar.style.cssText = `
-                    position: absolute;
-                    left: ${x}%;
-                    top: ${y}%;
-                    width: ${length}px;
-                    height: ${size}px;
-                    background: linear-gradient(to right, rgba(255,255,255,0), white);
-                    transform: rotate(-45deg);
-                    transform-origin: left;
-                    opacity: 0;
-                    animation: shoot ${duration}s infinite ${delay}s;
-                `;
-                
-                starfield.appendChild(shootingStar);
-                
-                // 随机时间后创建下一个流星
-                setTimeout(createShootingStar, Math.random() * 5000 + 3000);
-            }
-            
-            // 开始创建流星
-            setTimeout(createShootingStar, 2000);
-            
-            // 添加CSS动画
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes twinkle {
-                    0%, 100% { opacity: ${Math.random() * 0.5 + 0.2}; }
-                    50% { opacity: ${Math.random() * 0.8 + 0.2}; }
-                }
-                
-                @keyframes shoot {
-                    0% { 
-                        opacity: 0;
-                        left: ${Math.random() * 100}%;
-                        top: ${Math.random() * 30}%;
-                    }
-                    10% { opacity: 1; }
-                    90% { opacity: 1; }
-                    100% { 
-                        opacity: 0;
-                        left: ${Math.random() * 100 + 50}%;
-                        top: ${Math.random() * 30 + 50}%;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        });
-    </script>
+    <!-- 动画库 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simplex-noise@2.4.0/simplex-noise.min.js"></script>
+  </head>
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href="." class="icon icon-home"> 群峦格雷服务器指南
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">主页</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#tfg">在群峦格雷(TFG)里你能体验到什么？</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#kookdiscord">一. 服务器官方kook/discord邀请连接🚀：</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#discord-kook">Discord / Kook</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_1">二. 我该如何加入服务器呢？🤔</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#jdk-21">（推荐✨）傻瓜式安装，解压直接启动（jdk-21, 启动器以及版本文件同时打包）</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#javajdk-21pcl2">注意： 本文所有有关内容都假定读者电脑已经安装Java环境，如果你还没有，请自行安装JDK-21。（PCL2启动器中有提供下载）</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#1pcl2">1.下载PCL2</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2">2.下载整合包</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3pcl2">3.在PCL2内启动游戏</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_2">三. 意见反馈 🐞</a>
-    </li>
-    </ul>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="about/">整合包教程</a>
-                </li>
-              </ul>
-      </div>
-    </div>
+  <body class="wy-body-for-nav" role="document">
+    <canvas
+      id="threeCanvas"
+      style="position: fixed; top: 0; left: 0; z-index: -1"
+    ></canvas>
+    <nav class="quick-nav">
+      <ul>
+        <li><a href="#hero">首页</a></li>
+        <li><a href="#status">状态</a></li>
+        <li><a href="#features">特色</a></li>
+        <li><a href="#timeline">时间线</a></li>
+        <li><a href="#download">下载&支持</a></li>
+        <li><a href="#events">活动</a></li>
+        <li><a href="#video">视频</a></li>
+        <li><a href="#mod">模组</a></li>
+        <li><a href="#FAQ">FAQ</a></li>
+      </ul>
     </nav>
-
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href=".">群峦格雷服务器指南</a>
-        
-      </nav>
       <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">主页</li>
-    <li class="wy-breadcrumbs-aside">
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+        <div class="rst-content">
+          <div
+            role="main"
+            class="document"
+            itemscope
+            itemtype="http://schema.org/Article"
+          >
             <div class="section" itemprop="articleBody">
-              
-                <p><img src = ".\pics\background.png" width="100%">  </p>
-<h1 id="tfgip-6mcltd"><font color = gree> 欢迎来到TFG整合包服务器(IP: 6mc.ltd)指南界面！</font></h1>
-<p><code>TerraFirmaGreg(TFG)</code>是一个融合了群峦(<code>TerraFirma</code>)和格雷科技(<code>GregTech</code>)以及机械动力(<code>Create</code>)的Minecraft整合包，极大的丰富了原版MC的玩法，并且添加了一堆硬核的机制和挑战。  </p>
-<h2 id="tfg">在群峦格雷(TFG)里你能体验到什么？</h2>
-<ul>
-<li>更加<strong>科学</strong>且<strong>仿真</strong>的生存体验(理工科学生狂喜)！</li>
-<li>不同于原版的地形生成：真实的<strong>水流、山川、温泉、矿脉等</strong>。</li>
-<li>从<strong>石器时代</strong>开始，收集资源，制造工具和机器，经过三次<strong>工业革命</strong>，一直发展到<strong>信息时代</strong>！</li>
-<li><strong>如果你是澳洲小哥的忠实粉丝</strong>:那这个整合包就是为你量身定制的！</li>
-<li>让无数肝帝望而却步的流程！如果你觉得你是<strong>Minecraft领域大神</strong>，那么，欢迎你来尝试！</li>
-</ul>
-<p>该文档目前还在维护当中 </p>
-<p><img alt="MC服务器状态" src="https://api.mcstatus.io/v2/widget/java/6mc.ltd?theme=dark" /></p>
-<p>读者将确保以下几个组件在电脑上正确安装：  </p>
-<ul>
-<li>[x] Java 环境  </li>
-<li>[x] PCL2启动器  </li>
-<li>[x] TerraFirmaGreg-Modern整合包  </li>
-</ul>
-<h2 id="kookdiscord">一. 服务器官方kook/discord邀请连接🚀：</h2>
-<h3 id="discord-kook"><a href="https://discord.gg/x6Wcucnv">Discord</a> / <a href="https://kook.vip/tCQtpD">Kook</a></h3>
-<h2 id="_1">二. 我该如何加入服务器呢？🤔</h2>
-<h2 id="jdk-21"><font color=blue size = 7>（推荐✨）傻瓜式安装，解压直接启动（jdk-21, 启动器以及版本文件同时打包）</font></h2>
-<p><font size = 4>点我------------------------------------&gt;</font><a href="https://pan.quark.cn/s/4da9e623fd54"><img alt="点我" src="pics/click-me.png" /></a> <font size = 4>&lt;---------------------------------点我</font></p>
-<p><font size = 5 color=blue>以下为手动安装的操作 </font></p>
-<h3 id="javajdk-21pcl2">注意： 本文所有有关内容都假定读者电脑已经安装Java环境，如果你还没有，请自行安装JDK-21。（PCL2启动器中有提供下载）</h3>
-<h3 id="1pcl2"><font color = blue>1.下载PCL2 </font></h3>
-<p><strong>PCL2(Plain Craft Launcher 2)</strong> 是一款由Minecraft社区自行研发出的启动器，集成了不只是启动，还有Mod、整合包下载等诸多功能，本文档将详细介绍如何如何下载该启动器。<br />
-(1)首先，本文介绍最直接，也是最不容易让你的电脑安装一堆捆绑软件的方法，即前往PCL2官方发布页下载。进入网站 <a href="https://github.com/PCL-Community/PCL2-CE">https://pcl-community.github.io/ </a>（<strong>注意，部分用户可能无法正常访问，需要进行魔法上网</strong>），在屏幕右侧找到<strong>Releases</strong>，选择最新的版本，进入该版本发布界面，然后根据自己电脑的CPU架构在<strong>Assets</strong>中找到文件点击下载。如果你不知道你电脑是什么架构的，如果是Windows，那么x64居多。  </p>
-<p>(2)本文档不提供第三方下载地址，但是如果读者凭借自己力量实在无法正确下载PCL2启动器，那么欢迎读者加入服务器的<strong>kook或者Discord</strong>服务器进行讨论。</p>
-<h3 id="2"><font color = blue>2.下载整合包 </font></h3>
-<p><strong>整合包</strong>指的是Minecraft社区将原版Minecraft进行修改并且整合、分发的Minecraft版本。服务器采用的是TerraFirmaGreg - Modern整合包，所以用户需要保证自己的Minecraft版本以及修改内容与服务器保持一致。  </p>
-<p>我们采用直接PCL2内直接下载整合包的方式来保证这一点。  </p>
-<p><em>①在上方点击 "下载" 进入下载页面。</em><br />
-<em>②在左侧找到 "整合包"。</em><br />
-<em>③在搜索栏内输入TerraFirmaGreg。</em><br />
-<em>④点击TerraFirmaGreg-Mordern进入详情界面。</em><br />
-<em>⑤点击下载</em><em>0.7.19版本</em><em>，必须确保版本与服务器一致，才能够正常进入。</em><br />
-<img src = ".\pics\pcl2.png" width="50%">
-<img src = ".\pics\pcl2_1.png" width="50%"></p>
-<h3 id="3pcl2"><font color =blue>3.在PCL2内启动游戏</font></h3>
-<p>正常下载完整合包中，在PCL2启动器中的"启动"界面中，应正常显示刚刚下载的整合包的名称如图。
-<img src = ".\pics\pcl2_2.png" width="50%"><br />
-此时读者有两种选择：<br />
-1.离线登录，直接输入你的id，进行游戏启动。<br />
-2.正版登录，对于拥有正版账号的玩家，可以进行正版验证登录，本文不再赘述。  </p>
-<h2 id="_2">三. 意见反馈 🐞</h2>
-<p>请加入Kook或Discord服务器进行反馈。  </p>
-              
+              <!-- 英雄区域 -->
+              <header id="hero" style="text-align: center; margin-bottom: 3rem">
+                <img
+                  src="pics/background.png"
+                  alt="TFG服务器"
+                  style="
+                    max-width: 100%;
+                    border-radius: 10px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                  "
+                />
+                <h1 style="margin-top: 3rem">欢迎来到TFG硬核科技生存世界</h1>
+                <p style="font-size: 2rem; max-width: 800px; margin: 0 auto">
+                  IP:
+                  <code
+                    style="
+                      background: rgba(234, 196, 106, 0.2);
+                      padding: 0.3rem 0.5rem;
+                      border-radius: 4px;
+                    "
+                    >6mc.ltd</code
+                  >
+                </p>
+              </header>
+
+              <!-- 服务器状态卡片 -->
+              <div id="status" class="feature-card" data-aos="fade-up">
+                <h2>实时服务器状态</h2>
+                <img
+                  src="https://api.mcstatus.io/v2/widget/java/6mc.ltd?theme=dark"
+                  alt="服务器状态"
+                  style="max-width: 100%; height: auto"
+                />
+              </div>
+
+              <!-- 特色介绍 -->
+              <div id="features" class="feature-card" data-aos="fade-up">
+                <h2>核心特色体验</h2>
+                <div class="feature-grid">
+                  <!-- 真实地质演化 -->
+                  <div class="feature-cell" data-aos="zoom-in">
+                    <div class="feature-icon">
+                      <img
+                        src="pics/icon_geology.png"
+                        alt="真实地质生成"
+                        style="width: 120px; height: auto"
+                      />
+                      <div class="hover-glow"></div>
+                    </div>
+                    <h3>真实地质演化</h3>
+
+                    <div>
+                      <ul class="feature-detail">
+                        <li>⛰️ 根据板块运动理论构建的地形</li>
+                        <li>🌊 真实的河流</li>
+                        <li>⛏️ 真实矿脉分布逻辑以及矿洞坍塌</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- 科技树系统 -->
+                  <div
+                    class="feature-cell"
+                    data-aos="zoom-in"
+                    data-aos-delay="100"
+                  >
+                    <div class="feature-icon">
+                      <div class="hover-glow"></div>
+                    </div>
+                    <h3>科技时代演进</h3>
+                    <div class="era-background"></div>
+                    <div class="tech-progress-container">
+                      <input
+                        type="range"
+                        class="tech-slider"
+                        min="0"
+                        max="100"
+                        value="35"
+                      />
+                      <div class="tech-progress">
+                        <div class="era-marker" style="--progress: 35%">
+                          <span>蒸汽时代</span>
+                        </div>
+                      </div>
+                      <div class="era-labels">
+                        <span>石器</span>
+                        <span>蒸汽</span>
+                        <span>电气</span>
+                        <span>信息</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 工业系统 -->
+                  <div
+                    class="feature-cell"
+                    data-aos="zoom-in"
+                    data-aos-delay="200"
+                  >
+                    <div class="feature-icon industrial-animate">
+                      <img
+                        src="pics/icon_factory.png"
+                        alt="工业体系"
+                        style="width: 120px; height: auto"
+                      />
+                      <div class="steam-effect"></div>
+                    </div>
+                    <h3>复合工业体系</h3>
+                    <div class="industry-chains">
+                      <span>机械动力</span>
+                      <span>→ 物流系统 →</span>
+                      <span>格雷科技</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 科技树时间线 -->
+              <div id="timeline" class="feature-card" data-aos="fade-up">
+                <h2>科技发展时间线</h2>
+                <div class="tech-tree">
+                  <div class="era" style="--era-color: #8b4513">
+                    <div class="era-title">石器时代</div>
+                    <div class="era-progress"></div>
+                  </div>
+                  <div class="era" style="--era-color: #808080">
+                    <div class="era-title">蒸汽时代</div>
+                    <div class="era-progress"></div>
+                  </div>
+                  <div class="era" style="--era-color: #ffd700">
+                    <div class="era-title">电气时代</div>
+                    <div class="era-progress"></div>
+                  </div>
+                  <div class="era" style="--era-color: #4169e1">
+                    <div class="era-title">信息时代</div>
+                    <div class="era-progress"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 下载区域 -->
+              <div id="download" class="feature-card" data-aos="fade-up">
+                <h2>加入我们的世界</h2>
+                <h3>一键下载完整套件</h3>
+                <p>包含JDK-21、PCL2启动器和预配置整合包</p>
+                <a
+                  href="https://pan.quark.cn/s/4da9e623fd54"
+                  class="download-btn"
+                >
+                  <img src="pics/click-me.png" alt="下载" />
+                  立即下载 (v0.7.19)
+                </a>
+
+                <h3 style="margin-top: 2rem">社区链接</h3>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+                  <a
+                    href="https://discord.gg/x6Wcucnv"
+                    class="download-btn"
+                    style="
+                      background: linear-gradient(
+                        135deg,
+                        #5865f2 0%,
+                        #404eed 100%
+                      );
+                    "
+                  >
+                    <img src="pics/icon_discord.png" alt="Discord" />
+                    Discord
+                  </a>
+                  <a
+                    href="https://kook.vip/tCQtpD"
+                    class="download-btn"
+                    style="
+                      background: linear-gradient(
+                        135deg,
+                        #ff2442 0%,
+                        #d5213a 100%
+                      );
+                    "
+                  >
+                    <img src="pics/icon_kook.jpg" alt="KOOK" />
+                    KOOK
+                  </a>
+                </div>
+              </div>
+              <!-- —— 活动日历 —— -->
+              <div id="events" class="feature-card" data-aos="fade-up">
+                <h2>近期活动日历</h2>
+                <ul class="event-list">
+                  <li>
+                    <span>4月27日</span><strong>服务器官方网站更新</strong>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- —— 视频预告 —— -->
+              <div id="video" class="feature-card" data-aos="fade-up">
+                <h2>官方宣传视频</h2>
+                <div class="video-trailer">
+                  <iframe
+                    src="https://player.bilibili.com/player.html?isOutside=true&aid=1301625648&bvid=BV1cu4m1g7QJ&cid=1467633832&p=1"
+                    scrolling="no"
+                    frameborder="no"
+                    framespacing="0"
+                    allowfullscreen="true"
+                  ></iframe>
+                </div>
+              </div>
+
+              <!-- —— 核心插件与模组 —— -->
+              <div id="mod" class="feature-card" data-aos="fade-up">
+                <h2>核心插件与模组</h2>
+                <div class="plugin-grid">
+                  <div class="plugin-item">
+                    <img src="pics/TFC.webp" alt="TerraFirmaCraft" />
+                    <p><strong>TFC</strong><br />重构原版生存，使其更加硬核</p>
+                  </div>
+                  <div class="plugin-item">
+                    <img src="pics/GregTech.webp" alt="GregTech" />
+                    <p><strong>GregTech</strong><br />老牌科技模组</p>
+                  </div>
+                  <div class="plugin-item">
+                    <img src="pics/AE2.webp" alt="AppliedeEergistics2" />
+                    <p><strong>AE2</strong><br />自动化与储存</p>
+                  </div>
+                  <div class="plugin-item">
+                    <img src="pics/Create.webp" alt="Create" />
+                    <p><strong>Create</strong><br />机械动力</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- —— FAQ 新手指南 —— -->
+              <div id="FAQ" class="feature-card" data-aos="fade-up">
+                <h2>FAQ & 新手指南</h2>
+                <details class="faq-item">
+                  <summary>如何连接服务器？</summary>
+                  <p>
+                    在Minecraft Java版多人->添加服务器，输入 IP
+                    <code>6mc.ltd</code> 即可。
+                  </p>
+                </details>
+                <details class="faq-item">
+                  <summary>推荐的客户端与版本？</summary>
+                  <p>
+                    请使用 PCL2 启动器，一键下载即含 JDK-21 与预配置整合包。
+                  </p>
+                </details>
+                <details class="faq-item">
+                  <summary>如何赞助服务器？</summary>
+                  <p>在kook社区内私信管理员，或在Discord内联系管理员。</p>
+                </details>
+              </div>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="about/" class="btn btn-neutral float-right" title="整合包教程">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-  </div>
-
-</footer>
-          
+          </div>
         </div>
       </div>
-
     </section>
 
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
-    
-      <span><a href="about/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
-</div>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = ".";</script>
-    <script src="js/theme_extra.js"></script>
-    <script src="js/theme.js"></script>
-      <script src="search/main.js"></script>
+    <!-- 脚本加载 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
+      // 初始化动画库
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
 
-</body>
+      // 语法高亮
+      hljs.highlightAll();
+      // 初始化Three.js场景
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      const renderer = new THREE.WebGLRenderer({
+        canvas: document.querySelector("#threeCanvas"),
+        alpha: true,
+      });
+
+      // 粒子系统
+      /*const particleGeometry = new THREE.BufferGeometry();
+      const particleCount = 5000;
+      const posArray = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 10;
+      }
+
+      particleGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(posArray, 3)
+      );
+      const particleMaterial = new THREE.PointsMaterial({
+        size: 0.03,
+        color: new THREE.Color().setHSL(0.6, 0.5, 0.5),
+        transparent: true,
+        opacity: 0.8,
+      });
+      const particleMesh = new THREE.Points(particleGeometry, particleMaterial);
+      scene.add(particleMesh);
+
+      camera.position.z = 5;
+
+      // 动态光线
+      const light = new THREE.DirectionalLight(0xe9c46a, 0.5);
+      light.position.set(2, 2, 5);
+      scene.add(light);
+
+      // 动画循环
+      function animate() {
+        requestAnimationFrame(animate);
+
+        particleMesh.rotation.y += 0.001;
+        particleMesh.rotation.x += 0.0005;
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.render(scene, camera);
+      }
+
+      animate();
+      */
+      // —— 场景、相机、渲染器（你已有的部分，可合并） ——
+      const canvas = document.querySelector("#threeCanvas");
+      camera.position.set(0, 30, 50);
+      camera.lookAt(0, 0, 0);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      // —— 灯光 ——
+      const light = new THREE.DirectionalLight(0xffffff, 0.8);
+      light.position.set(30, 50, 30);
+      scene.add(light);
+
+      // —— 地形参数 ——
+      const terrainSize = 500;
+      const segments = 200;
+      const geometry = new THREE.PlaneBufferGeometry(
+        terrainSize,
+        terrainSize,
+        segments,
+        segments
+      );
+      geometry.rotateX(-Math.PI / 2);
+
+      // 材质可以按需换成你的渐变或着色器材质
+      const material = new THREE.MeshStandardMaterial({
+        color: 0x556b2f,
+        wireframe: false,
+        flatShading: true,
+        side: THREE.DoubleSide,
+      });
+
+      const terrain = new THREE.Mesh(geometry, material);
+      scene.add(terrain);
+
+      // —— 噪声生成器 ——
+      const simplex = new SimplexNoise();
+
+      // —— 动态更新地形 ——
+      function updateTerrain(time) {
+        const positions = geometry.attributes.position.array;
+        let idx = 0;
+        for (let i = 0; i <= segments; i++) {
+          for (let j = 0; j <= segments; j++) {
+            // 计算平面上每个顶点的世界坐标
+            const x = (i / segments - 0.5) * terrainSize;
+            const z = (j / segments - 0.5) * terrainSize;
+            // 噪声函数，time * 0.0001 控制演化速度
+            const y =
+              simplex.noise2D(
+                x * 0.02 + time * 0.0001,
+                z * 0.02 + time * 0.0001
+              ) * 8;
+            positions[idx + 1] = y; // 因为已旋转 X 轴，所以 y 值在 array 的第二位
+            idx += 3;
+          }
+        }
+        
+        geometry.attributes.position.needsUpdate = true;
+        geometry.computeVertexNormals();
+      }
+
+      // —— 动画循环 ——
+      function animate(time) {
+        requestAnimationFrame(animate);
+        updateTerrain(time);
+        renderer.render(scene, camera);
+      }
+      animate(0);
+
+      // —— 响应式 ——
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      // 卡片交互动画
+      document.querySelectorAll(".feature-card").forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          gsap.to(card, {
+            duration: 0.5,
+            x: (x - rect.width / 2) * 0.1,
+            y: (y - rect.height / 2) * 0.1,
+            ease: "power2.out",
+          });
+        });
+
+        card.addEventListener("mouseleave", () => {
+          gsap.to(card, {
+            duration: 0.8,
+            x: 0,
+            y: 0,
+            ease: "elastic.out(1, 0.5)",
+          });
+        });
+      });
+
+      // 响应式处理
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+      // 时代背景配置
+      const eraMap = [
+        { range: [0, 25], era: "stone", label: "石器时代" },
+        { range: [25, 50], era: "steam", label: "蒸汽时代" },
+        { range: [50, 75], era: "electric", label: "电气时代" },
+        { range: [75, 100], era: "info", label: "信息时代" },
+      ];
+
+      document.querySelectorAll(".tech-slider").forEach((slider) => {
+        const background = slider
+          .closest(".feature-cell")
+          .querySelector(".era-background");
+        const eraMarker = slider
+          .closest(".feature-cell")
+          .querySelector(".era-marker span");
+
+        slider.addEventListener("input", (e) => {
+          const value = parseInt(e.target.value);
+
+          // 更新进度条视觉
+          eraMarker.parentElement.style.setProperty("--progress", `${value}%`);
+
+          // 更新背景和标签
+          const currentEra = eraMap.find(
+            (era) => value >= era.range[0] && value < era.range[1]
+          );
+          background.dataset.era = currentEra.era;
+          eraMarker.textContent = currentEra.label;
+
+          // 动态调整背景明暗
+          background.style.filter = `brightness(${60 + (value / 100) * 40}%)`;
+        });
+      });
+    </script>
+  </body>
 </html>
