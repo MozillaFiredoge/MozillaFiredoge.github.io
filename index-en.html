@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh">
+<html class="writer-html5" lang="en">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="群峦格雷(TFG)服务器官方指南 - 硬核科技生存体验"
+      content="TerraFirmaGreg (TFG) Server Official Guide - Hardcore Tech Survival Experience"
     />
     <link rel="shortcut icon" href="pics/icon.png" />
-    <title>群峦格雷服务器指南</title>
+    <title>TerraFirmaGreg Server Guide</title>
 
-    <!-- 核心样式 -->
+    <!-- Core Styles -->
     <style>
       @font-face {
         font-family: "Minecraft AE";
@@ -24,7 +24,7 @@
         --text-light: #f8f9fa;
         --bg-dark: #1a1a1a;
       }
-      /* —— 顶部锚点导航 —— */
+      /* —— Top Anchor Navigation —— */
       .quick-nav {
         position: fixed;
         top: 0;
@@ -60,9 +60,9 @@
         border-radius: 4px;
       }
 
-      /* 给内容留出顶部空间，否则会被导航遮挡 */
+      /* Make space for top navigation */
       .wy-nav-content {
-        padding-top: 4rem; /* 与导航高度相当 */
+        padding-top: 4rem;
       }
 
       body {
@@ -135,7 +135,7 @@
         margin-bottom: 1.5rem;
       }
 
-      /* 卡片式布局 */
+      /* Card Layout */
       .feature-card {
         background: rgba(40, 40, 40, 0.9);
         border-radius: 15px;
@@ -151,7 +151,7 @@
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       }
 
-      /* 下载按钮 */
+      /* Download Button */
       .download-btn {
         display: inline-flex;
         align-items: center;
@@ -181,7 +181,7 @@
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
       }
 
-      /* 科技树时间线 */
+      /* Tech Tree Timeline */
       .tech-tree {
         display: flex;
         justify-content: space-between;
@@ -226,7 +226,7 @@
         }
       }
 
-      /* 响应式设计 */
+      /* Responsive Design */
       @media (max-width: 768px) {
         .wy-nav-content {
           padding: 1.5rem;
@@ -248,7 +248,7 @@
           margin-bottom: 1.5rem;
         }
       }
-      /* —— 活动日历 —— */
+      /* —— Event Calendar —— */
       .event-list {
         list-style: none;
         padding: 0;
@@ -264,7 +264,7 @@
         color: var(--accent-color);
       }
 
-      /* —— 视频预告 —— */
+      /* —— Video Trailer —— */
       .video-trailer {
         position: relative;
         padding-bottom: 56.25%;
@@ -281,7 +281,7 @@
         height: 100%;
       }
 
-      /* —— 插件介绍 —— */
+      /* —— Plugin Showcase —— */
       .plugin-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -304,7 +304,7 @@
         background: rgba(255, 255, 255, 0.1);
       }
 
-      /* —— FAQ 折叠 —— */
+      /* —— FAQ Accordion —— */
       .faq-item {
         margin-bottom: 1rem;
       }
@@ -330,7 +330,7 @@
       html {
         scroll-behavior: smooth;
       }
-      /* 特征网格布局 */
+      /* Feature Grid Layout */
       .feature-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -351,7 +351,7 @@
         transform: translateY(-5px) scale(1.02);
       }
 
-      /* 图标悬停特效 */
+      /* Icon Hover Effects */
       .feature-icon {
         position: relative;
         width: 80px;
@@ -376,7 +376,7 @@
         opacity: 1;
       }
 
-      /* 工业动画特效 */
+      /* Industrial Animation */
       .industrial-animate {
         animation: factoryHum 2s ease-in-out infinite;
       }
@@ -413,7 +413,7 @@
         }
       }
 
-      /* 科技进度进度条 */
+      /* Tech Progress Bar */
       .tech-progress-container {
         position: relative;
         margin-top: 2rem;
@@ -449,14 +449,14 @@
         font-size: 0.9em;
       }
 
-      /* 隐藏默认滑动条样式 */
+      /* Hide default slider styles */
       .tech-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         width: 16px;
         height: 16px;
       }
 
-      /* 时代背景图配置 */
+      /* Era Background Images */
       .era-background[data-era="stone"] {
         background-image: url("pics/era_stone.png");
       }
@@ -469,7 +469,7 @@
       .era-background[data-era="info"] {
         background-image: url("pics/era_info.png");
       }
-      /* 添加颗粒滤镜增强质感 */
+      /* Add noise filter for texture */
       .era-background::after {
         content: "";
         position: absolute;
@@ -480,7 +480,7 @@
         mix-blend-mode: overlay;
       }
 
-      /* 时代标签动画 */
+      /* Era Label Animation */
       .era-marker span {
         transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       }
@@ -525,7 +525,7 @@
       }
     </style>
 
-    <!-- 动画库 -->
+    <!-- Animation Libraries -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
@@ -540,14 +540,14 @@
 
     <nav class="quick-nav">
       <ul>
-        <li><a href="#hero">首页</a></li>
-        <li><a href="#status">状态</a></li>
-        <li><a href="#features">特色</a></li>
-        <li><a href="#timeline">时间线</a></li>
-        <li><a href="#download">下载&支持</a></li>
-        <li><a href="#events">活动</a></li>
-        <li><a href="#video">视频</a></li>
-        <li><a href="#mod">模组</a></li>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#status">Status</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#timeline">Timeline</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#video">Video</a></li>
+        <li><a href="#mod">Mods</a></li>
         <li><a href="#FAQ">FAQ</a></li>
       </ul>
     </nav>
@@ -562,18 +562,18 @@
             itemtype="http://schema.org/Article"
           >
             <div class="section" itemprop="articleBody">
-              <!-- 英雄区域 -->
+              <!-- Hero Section -->
               <header id="hero" style="text-align: center; margin-bottom: 3rem">
                 <img
                   src="pics/background.png"
-                  alt="TFG服务器"
+                  alt="TFG Server"
                   style="
                     max-width: 100%;
                     border-radius: 10px;
                     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
                   "
                 />
-                <h1 style="margin-top: 3rem">欢迎来到TFG硬核科技生存世界</h1>
+                <h1 style="margin-top: 3rem">Welcome to TFG Hardcore Tech Survival World</h1>
                 <p style="font-size: 2rem; max-width: 800px; margin: 0 auto">
                   IP:
                   <code
@@ -587,42 +587,42 @@
                 </p>
               </header>
 
-              <!-- 服务器状态卡片 -->
+              <!-- Server Status Card -->
               <div id="status" class="feature-card" data-aos="fade-up">
-                <h2>实时服务器状态</h2>
+                <h2>Real-time Server Status</h2>
                 <img
                   src="https://api.mcstatus.io/v2/widget/java/6mc.ltd?theme=dark"
-                  alt="服务器状态"
+                  alt="Server Status"
                   style="max-width: 100%; height: auto"
                 />
               </div>
 
-              <!-- 特色介绍 -->
+              <!-- Features Section -->
               <div id="features" class="feature-card" data-aos="fade-up">
-                <h2>核心特色体验</h2>
+                <h2>Core Features</h2>
                 <div class="feature-grid">
-                  <!-- 真实地质演化 -->
+                  <!-- Realistic Geology -->
                   <div class="feature-cell" data-aos="zoom-in">
                     <div class="feature-icon">
                       <img
                         src="pics/icon_geology.png"
-                        alt="真实地质生成"
+                        alt="Realistic Geology"
                         style="width: 120px; height: auto"
                       />
                       <div class="hover-glow"></div>
                     </div>
-                    <h3>真实地质演化</h3>
+                    <h3>Realistic Geology</h3>
 
                     <div>
                       <ul class="feature-detail">
-                        <li>⛰️ 根据板块运动理论构建的地形</li>
-                        <li>🌊 真实的河流</li>
-                        <li>⛏️ 真实矿脉分布逻辑以及矿洞坍塌</li>
+                        <li>⛰️ Terrain based on plate tectonics theory</li>
+                        <li>🌊 Realistic river systems</li>
+                        <li>⛏️ Authentic ore vein distribution and cave collapses</li>
                       </ul>
                     </div>
                   </div>
 
-                  <!-- 科技树系统 -->
+                  <!-- Tech Tree System -->
                   <div
                     class="feature-cell"
                     data-aos="zoom-in"
@@ -631,7 +631,7 @@
                     <div class="feature-icon">
                       <div class="hover-glow"></div>
                     </div>
-                    <h3>科技时代演进</h3>
+                    <h3>Tech Progression</h3>
                     <div class="era-background"></div>
                     <div class="tech-progress-container">
                       <input
@@ -643,19 +643,19 @@
                       />
                       <div class="tech-progress">
                         <div class="era-marker" style="--progress: 35%">
-                          <span>蒸汽时代</span>
+                          <span>Steam Age</span>
                         </div>
                       </div>
                       <div class="era-labels">
-                        <span>石器</span>
-                        <span>蒸汽</span>
-                        <span>电气</span>
-                        <span>信息</span>
+                        <span>Stone</span>
+                        <span>Steam</span>
+                        <span>Electric</span>
+                        <span>Info</span>
                       </div>
                     </div>
                   </div>
 
-                  <!-- 工业系统 -->
+                  <!-- Industrial System -->
                   <div
                     class="feature-cell"
                     data-aos="zoom-in"
@@ -664,58 +664,58 @@
                     <div class="feature-icon industrial-animate">
                       <img
                         src="pics/icon_factory.png"
-                        alt="工业体系"
+                        alt="Industrial System"
                         style="width: 120px; height: auto"
                       />
                       <div class="steam-effect"></div>
                     </div>
-                    <h3>复合工业体系</h3>
+                    <h3>Integrated Industry</h3>
                     <div class="industry-chains">
-                      <span>机械动力</span>
-                      <span>→ 物流系统 →</span>
-                      <span>格雷科技</span>
+                      <span>Create</span>
+                      <span>→ Logistics →</span>
+                      <span>GregTech</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <!-- 科技树时间线 -->
+              <!-- Tech Tree Timeline -->
               <div id="timeline" class="feature-card" data-aos="fade-up">
-                <h2>科技发展时间线</h2>
+                <h2>Technology Progression Timeline</h2>
                 <div class="tech-tree">
                   <div class="era" style="--era-color: #8b4513">
-                    <div class="era-title">石器时代</div>
+                    <div class="era-title">Stone Age</div>
                     <div class="era-progress"></div>
                   </div>
                   <div class="era" style="--era-color: #808080">
-                    <div class="era-title">蒸汽时代</div>
+                    <div class="era-title">Steam Age</div>
                     <div class="era-progress"></div>
                   </div>
                   <div class="era" style="--era-color: #ffd700">
-                    <div class="era-title">电气时代</div>
+                    <div class="era-title">Electric Age</div>
                     <div class="era-progress"></div>
                   </div>
                   <div class="era" style="--era-color: #4169e1">
-                    <div class="era-title">信息时代</div>
+                    <div class="era-title">Information Age</div>
                     <div class="era-progress"></div>
                   </div>
                 </div>
               </div>
 
-              <!-- 下载区域 -->
+              <!-- Download Section -->
               <div id="download" class="feature-card" data-aos="fade-up">
-                <h2>加入我们的世界</h2>
-                <h3>一键下载完整套件</h3>
-                <p>包含JDK-21、PCL2启动器和预配置整合包</p>
+                <h2>Join Our World</h2>
+                <h3>One-Click Download Package</h3>
+                <p>Includes JDK-21, PCL2 launcher and pre-configured modpack</p>
                 <a
                   href="https://pan.quark.cn/s/4da9e623fd54"
                   class="download-btn"
                 >
-                  <img src="pics/click-me.png" alt="下载" />
-                  立即下载 (v0.7.19)
+                  <img src="pics/click-me.png" alt="Download" />
+                  Download Now (v0.7.19)
                 </a>
 
-                <h3 style="margin-top: 2rem">社区链接</h3>
+                <h3 style="margin-top: 2rem">Community Links</h3>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap">
                   <a
                     href="https://discord.gg/x6Wcucnv"
@@ -747,19 +747,19 @@
                   </a>
                 </div>
               </div>
-              <!-- —— 活动日历 —— -->
+              <!-- —— Event Calendar —— -->
               <div id="events" class="feature-card" data-aos="fade-up">
-                <h2>近期活动日历</h2>
+                <h2>Upcoming Events</h2>
                 <ul class="event-list">
                   <li>
-                    <span>4月27日</span><strong>服务器官方网站更新</strong>
+                    <span>April 27</span><strong>Server Website Update</strong>
                   </li>
                 </ul>
               </div>
 
-              <!-- —— 视频预告 —— -->
+              <!-- —— Video Trailer —— -->
               <div id="video" class="feature-card" data-aos="fade-up">
-                <h2>官方宣传视频</h2>
+                <h2>Official Trailer</h2>
                 <div class="video-trailer">
                   <iframe
                     src="https://player.bilibili.com/player.html?isOutside=true&aid=1301625648&bvid=BV1cu4m1g7QJ&cid=1467633832&p=1"
@@ -771,9 +771,9 @@
                 </div>
               </div>
 
-              <!-- —— 核心插件与模组 —— -->
+              <!-- —— Core Mods —— -->
               <div id="mod" class="feature-card" data-aos="fade-up">
-                <h2>核心插件与模组</h2>
+                <h2>Core Mods</h2>
                 <div class="plugin-grid">
                   <div class="plugin-item">
                     <a
@@ -783,7 +783,7 @@
                     >
                       <img src="pics/TFC.webp" alt="TerraFirmaCraft" />
                       <p>
-                        <strong>TFC</strong><br />重构原版生存，使其更加硬核
+                        <strong>TFC</strong><br />Overhauls vanilla survival to be more hardcore
                       </p>
                     </a>
                   </div>
@@ -794,7 +794,7 @@
                       rel="noopener noreferrer"
                     >
                       <img src="pics/GregTech.webp" alt="GregTech" />
-                      <p><strong>GregTech</strong><br />老牌科技模组</p>
+                      <p><strong>GregTech</strong><br />Classic tech mod</p>
                     </a>
                   </div>
                   <div class="plugin-item">
@@ -804,7 +804,7 @@
                       rel="noopener noreferrer"
                     >
                       <img src="pics/AE2.webp" alt="AppliedEnergistics" />
-                      <p><strong>AE</strong><br />自动化与储存</p>
+                      <p><strong>AE</strong><br />Automation & Storage</p>
                     </a>
                   </div>
                   <div class="plugin-item">
@@ -814,31 +814,31 @@
                       rel="noopener noreferrer"
                     >
                       <img src="pics/Create.webp" alt="Create" />
-                      <p><strong>Create</strong><br />机械动力</p>
+                      <p><strong>Create</strong><br />Mechanical power</p>
                     </a>
                   </div>
                 </div>
               </div>
 
-              <!-- —— FAQ 新手指南 —— -->
+              <!-- —— FAQ & New Player Guide —— -->
               <div id="FAQ" class="feature-card" data-aos="fade-up">
-                <h2>FAQ & 新手指南</h2>
+                <h2>FAQ & New Player Guide</h2>
                 <details class="faq-item">
-                  <summary>如何连接服务器？</summary>
+                  <summary>How to connect to the server?</summary>
                   <p>
-                    在Minecraft Java版多人->添加服务器，输入 IP
-                    <code>6mc.ltd</code> 即可。
+                    In Minecraft Java Edition Multiplayer -> Add Server, enter IP
+                    <code>6mc.ltd</code>.
                   </p>
                 </details>
                 <details class="faq-item">
-                  <summary>推荐的客户端与版本？</summary>
+                  <summary>Recommended client & version?</summary>
                   <p>
-                    请使用 PCL2 启动器，一键下载即含 JDK-21 与预配置整合包。
+                    Please use PCL2 launcher, the one-click download includes JDK-21 and pre-configured modpack.
                   </p>
                 </details>
                 <details class="faq-item">
-                  <summary>如何赞助服务器？</summary>
-                  <p>在kook社区内私信管理员，或在Discord内联系管理员。</p>
+                  <summary>How to support the server?</summary>
+                  <p>Contact admins in KOOK community or Discord.</p>
                 </details>
               </div>
             </div>
@@ -847,25 +847,25 @@
       </div>
     </section>
     <div id="language-switcher">
-      <button id="language-button">🌍</button>
-      <div id="language-menu">
-        <a href="index.html">中文</a>
-        <a href="index-en.html">English</a>
+        <button id="language-button">🌍</button>
+        <div id="language-menu">
+          <a href="index.html">中文</a>
+          <a href="index-en.html">English</a>
+        </div>
       </div>
-    </div>
-    <!-- 脚本加载 -->
+    <!-- Script Loading -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      // 初始化动画库
+      // Initialize animation library
       AOS.init({
         duration: 800,
         once: true,
       });
 
-      // 语法高亮
+      // Syntax highlighting
       hljs.highlightAll();
-      // 初始化Three.js场景
+      // Initialize Three.js scene
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
         75,
@@ -878,7 +878,7 @@
         alpha: true,
       });
 
-      // 粒子系统
+      // Particle system
       /*const particleGeometry = new THREE.BufferGeometry();
       const particleCount = 5000;
       const posArray = new Float32Array(particleCount * 3);
@@ -902,12 +902,12 @@
 
       camera.position.z = 5;
 
-      // 动态光线
+      // Dynamic lighting
       const light = new THREE.DirectionalLight(0xe9c46a, 0.5);
       light.position.set(2, 2, 5);
       scene.add(light);
 
-      // 动画循环
+      // Animation loop
       function animate() {
         requestAnimationFrame(animate);
 
@@ -920,19 +920,19 @@
 
       animate();
       */
-      // —— 场景、相机、渲染器（你已有的部分，可合并） ——
+      // —— Scene, Camera, Renderer (your existing code, can be merged) ——
       const canvas = document.querySelector("#threeCanvas");
       camera.position.set(0, 30, 50);
       camera.lookAt(0, 0, 0);
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
 
-      // —— 灯光 ——
+      // —— Lighting ——
       const light = new THREE.DirectionalLight(0xffffff, 0.8);
       light.position.set(30, 50, 30);
       scene.add(light);
 
-      // —— 地形参数 ——
+      // —— Terrain Parameters ——
       const terrainSize = 500;
       const segments = 200;
       const geometry = new THREE.PlaneBufferGeometry(
@@ -943,7 +943,7 @@
       );
       geometry.rotateX(-Math.PI / 2);
 
-      // 材质可以按需换成你的渐变或着色器材质
+      // Material can be replaced with your gradient or shader material
       const material = new THREE.MeshStandardMaterial({
         color: 0x556b2f,
         wireframe: false,
@@ -954,25 +954,25 @@
       const terrain = new THREE.Mesh(geometry, material);
       scene.add(terrain);
 
-      // —— 噪声生成器 ——
+      // —— Noise Generator ——
       const simplex = new SimplexNoise();
 
-      // —— 动态更新地形 ——
+      // —— Dynamic Terrain Updates ——
       function updateTerrain(time) {
         const positions = geometry.attributes.position.array;
         let idx = 0;
         for (let i = 0; i <= segments; i++) {
           for (let j = 0; j <= segments; j++) {
-            // 计算平面上每个顶点的世界坐标
+            // Calculate world coordinates for each vertex
             const x = (i / segments - 0.5) * terrainSize;
             const z = (j / segments - 0.5) * terrainSize;
-            // 噪声函数，time * 0.0001 控制演化速度
+            // Noise function, time * 0.0001 controls evolution speed
             const y =
               simplex.noise2D(
                 x * 0.02 + time * 0.0001,
                 z * 0.02 + time * 0.0001
               ) * 8;
-            positions[idx + 1] = y; // 因为已旋转 X 轴，所以 y 值在 array 的第二位
+            positions[idx + 1] = y; // Because X axis is rotated, y value is at second position in array
             idx += 3;
           }
         }
@@ -981,7 +981,7 @@
         geometry.computeVertexNormals();
       }
 
-      // —— 动画循环 ——
+      // —— Animation Loop ——
       function animate(time) {
         requestAnimationFrame(animate);
         updateTerrain(time);
@@ -989,14 +989,14 @@
       }
       animate(0);
 
-      // —— 响应式 ——
+      // —— Responsive Design ——
       window.addEventListener("resize", () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
 
-      // 卡片交互动画
+      // Card interaction animation
       document.querySelectorAll(".feature-card").forEach((card) => {
         card.addEventListener("mousemove", (e) => {
           const rect = card.getBoundingClientRect();
@@ -1021,18 +1021,18 @@
         });
       });
 
-      // 响应式处理
+      // Responsive handling
       window.addEventListener("resize", () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
-      // 时代背景配置
+      // Era background configuration
       const eraMap = [
-        { range: [0, 25], era: "stone", label: "石器时代" },
-        { range: [25, 50], era: "steam", label: "蒸汽时代" },
-        { range: [50, 75], era: "electric", label: "电气时代" },
-        { range: [75, 100], era: "info", label: "信息时代" },
+        { range: [0, 25], era: "stone", label: "Stone Age" },
+        { range: [25, 50], era: "steam", label: "Steam Age" },
+        { range: [50, 75], era: "electric", label: "Electric Age" },
+        { range: [75, 100], era: "info", label: "Information Age" },
       ];
 
       document.querySelectorAll(".tech-slider").forEach((slider) => {
@@ -1046,17 +1046,17 @@
         slider.addEventListener("input", (e) => {
           const value = parseInt(e.target.value);
 
-          // 更新进度条视觉
+          // Update progress bar visuals
           eraMarker.parentElement.style.setProperty("--progress", `${value}%`);
 
-          // 更新背景和标签
+          // Update background and label
           const currentEra = eraMap.find(
             (era) => value >= era.range[0] && value < era.range[1]
           );
           background.dataset.era = currentEra.era;
           eraMarker.textContent = currentEra.label;
 
-          // 动态调整背景明暗
+          // Dynamic background brightness adjustment
           background.style.filter = `brightness(${60 + (value / 100) * 40}%)`;
         });
       });
@@ -1071,7 +1071,7 @@
         }
       });
 
-      // 点击页面其他地方时自动关闭菜单
+      // Close menu when clicking elsewhere
       document.addEventListener("click", function (e) {
         if (!document.getElementById("language-switcher").contains(e.target)) {
           menu.style.display = "none";
