@@ -23,6 +23,10 @@
         --accent-color: #e9c46a;
         --text-light: #f8f9fa;
         --bg-dark: #1a1a1a;
+        --tfc-green: #2c4a3d;
+        --gregtech-blue: #2196f3;
+        --ae2-purple: #9c27b0;
+        --create-orange: #ff9800;
       }
       /* —— 顶部锚点导航 —— */
       .quick-nav {
@@ -523,6 +527,84 @@
       #language-menu a:hover {
         color: #007bff;
       }
+      .mod-box {
+        background: rgba(30, 30, 30, 0.8);
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-left: 5px solid;
+        transition: all 0.3s ease;
+      }
+      /* 模组网格布局 */
+      .mod-grid {
+        display: grid;
+        flex-direction: column; /* 从上到下 */
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      /* 响应式设计 */
+      @media (max-width: 768px) {
+        .wy-nav-content {
+          padding: 1.5rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.6rem;
+        }
+
+        .mod-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .mod-box {
+        position: relative; 
+        max-height: 200px; 
+        background-size: cover; 
+        background-position: center;
+        overflow: hidden; 
+        transition: max-height 0.5s ease, background-size 0.5s ease;
+      }
+      /* 悬浮展开并显示完整背景 */
+      .mod-box:hover {
+        max-height: 600px; /* 或 none */
+        background-size: contain;
+      }
+      .mod-box.tfc {
+        border-color: var(--tfc-green);
+        background-image: url("pics/tfc.png");
+        background-size: cover;
+        background-position: center;
+        text-align: right;
+      }
+
+      .mod-box.gregtech {
+        border-color: var(--gregtech-blue);
+        background-image: url("pics/gt.png");
+        background-size: cover;
+        background-position: center;
+        text-align: right;
+      }
+
+      .mod-box.ae2 {
+        border-color: var(--ae2-purple);
+        background-image: url("pics/AE2.png");
+        background-size: cover;
+        background-position: center;
+        text-align: right;
+      }
+
+      .mod-box.create {
+        border-color: var(--create-orange);
+        background-image: url("pics/Create.png");
+        background-size: cover;
+        background-position: center;
+        text-align: right;
+      }
     </style>
 
     <!-- 动画库 -->
@@ -597,99 +679,151 @@
                   >
                 </p>
               </header>
-
-              <!-- 服务器状态卡片 -->
-              <div id="status" class="feature-card" data-aos="fade-up">
-                <h2>实时服务器状态</h2>
-                <img
-                  src="https://api.mcstatus.io/v2/widget/java/6mc.ltd?theme=dark"
-                  alt="服务器状态"
-                  style="max-width: 100%; height: auto"
-                />
+              <!-- —— 视频预告 —— -->
+              <div id="video" class="feature-card" data-aos="fade-up">
+                <h2>官方宣传视频</h2>
+                <div class="video-trailer">
+                  <iframe
+                    src="https://player.bilibili.com/player.html?isOutside=true&aid=1301625648&bvid=BV1cu4m1g7QJ&cid=1467633832&p=1"
+                    scrolling="no"
+                    frameborder="no"
+                    framespacing="0"
+                    allowfullscreen="true"
+                  ></iframe>
+                </div>
               </div>
-
-              <!-- 特色介绍 -->
-              <div id="features" class="feature-card" data-aos="fade-up">
-                <h2>核心特色体验</h2>
-                <div class="feature-grid">
-                  <!-- 真实地质演化 -->
-                  <div class="feature-cell" data-aos="zoom-in">
-                    <div class="feature-icon">
-                      <img
-                        src="pics/icon_geology.png"
-                        alt="真实地质生成"
-                        style="width: 120px; height: auto"
-                      />
-                      <div class="hover-glow"></div>
-                    </div>
-                    <h3>真实地质演化</h3>
-
-                    <div>
-                      <ul class="feature-detail">
-                        <li>⛰️ 根据板块运动理论构建的地形</li>
-                        <li>🌊 真实的河流</li>
-                        <li>⛏️ 真实矿脉分布逻辑以及矿洞坍塌</li>
-                      </ul>
-                    </div>
+              <!-- —— 核心插件与模组 —— -->
+              <div id="mod" class="feature-card" data-aos="fade-up">
+                <h2>核心插件与模组</h2>
+                <div class="plugin-grid">
+                  <div class="plugin-item">
+                    <a
+                      href="https://github.com/TerraFirmaCraft/TerraFirmaCraft"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="pics/TFC.webp" alt="TerraFirmaCraft" />
+                      <p>
+                        <strong>TFC</strong><br />重构原版生存，使其更加硬核
+                      </p>
+                    </a>
+                  </div>
+                  <div class="plugin-item">
+                    <a
+                      href="https://gregtechceu.github.io/GregTech-Modern/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="pics/GregTech.webp" alt="GregTech" />
+                      <p><strong>GregTech</strong><br />老牌科技模组</p>
+                    </a>
+                  </div>
+                  <div class="plugin-item">
+                    <a
+                      href="https://appliedenergistics.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="pics/AE2.webp" alt="AppliedEnergistics" />
+                      <p><strong>AE</strong><br />自动化与储存</p>
+                    </a>
+                  </div>
+                  <div class="plugin-item">
+                    <a
+                      href="https://www.bilibili.com/video/BV1o8QAY6E2P"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="pics/Create.webp" alt="Create" />
+                      <p><strong>Create</strong><br />机械动力</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- 核心模组介绍 -->
+              <div id="mods" class="feature-card" data-aos="fade-up">
+                <h2>✨ 核心模组交响曲</h2>
+                <div class="mod-grid">
+                  <!-- TerraFirmaCraft 模块 -->
+                  <div class="mod-box tfc" data-aos="fade-up">
+                    <h3>🌱 TerraFirmaCraft</h3>
+                    <p>体验完全重构的生存法则：</p>
+                    <ul>
+                      <li>拟真地质系统与动态季节气候</li>
+                      <li>从石器时代到工业革命的完整技术树</li>
+                      <li>食物腐败系统与营养平衡管理</li>
+                    </ul>
                   </div>
 
-                  <!-- 科技树系统 -->
+                  <!-- GregTech-Modern 模块 -->
                   <div
-                    class="feature-cell"
-                    data-aos="zoom-in"
+                    class="mod-box gregtech"
+                    data-aos="fade-up"
                     data-aos-delay="100"
                   >
-                    <div class="feature-icon">
-                      <div class="hover-glow"></div>
-                    </div>
-                    <h3>科技时代演进</h3>
-                    <div class="era-background"></div>
-                    <div class="tech-progress-container">
-                      <input
-                        type="range"
-                        class="tech-slider"
-                        min="0"
-                        max="100"
-                        value="35"
-                      />
-                      <div class="tech-progress">
-                        <div class="era-marker" style="--progress: 35%">
-                          <span>蒸汽时代</span>
-                        </div>
-                      </div>
-                      <div class="era-labels">
-                        <span>石器</span>
-                        <span>蒸汽</span>
-                        <span>电气</span>
-                        <span>信息</span>
-                      </div>
-                    </div>
+                    <h3>⚡ GregTech-Modern</h3>
+                    <p>踏入微观工业革命：</p>
+                    <ul>
+                      <li>纳米级材料加工与量子级生产线</li>
+                      <li>12阶电压系统（从ULV到MAX）</li>
+                      <li>真实物理模拟的化学生产链</li>
+                    </ul>
                   </div>
 
-                  <!-- 工业系统 -->
+                  <!-- Applied Energistics 2 模块 -->
                   <div
-                    class="feature-cell"
-                    data-aos="zoom-in"
+                    class="mod-box ae2"
+                    data-aos="fade-up"
                     data-aos-delay="200"
                   >
-                    <div class="feature-icon industrial-animate">
-                      <img
-                        src="pics/icon_factory.png"
-                        alt="工业体系"
-                        style="width: 120px; height: auto"
-                      />
-                      <div class="steam-effect"></div>
-                    </div>
-                    <h3>复合工业体系</h3>
-                    <div class="industry-chains">
-                      <span>机械动力</span>
-                      <span>→ 物流系统 →</span>
-                      <span>格雷科技</span>
-                    </div>
+                    <h3>🔮 Applied Energistics 2</h3>
+                    <p>构建智慧物流网络：</p>
+                    <ul>
+                      <li>量子存储与自动化合成系统</li>
+                      <li>64频道无线终端管理</li>
+                      <li>跨维度物资调拨体系</li>
+                    </ul>
+                  </div>
+
+                  <!-- Create 模块 -->
+                  <div
+                    class="mod-box create"
+                    data-aos="fade-up"
+                    data-aos-delay="300"
+                  >
+                    <h3>⚙ Create</h3>
+                    <p>机械美学的终极呈现：</p>
+                    <ul>
+                      <li>可视化动力传输系统</li>
+                      <li>模块化自动工厂搭建</li>
+                      <li>沉浸式机械动画效果</li>
+                    </ul>
                   </div>
                 </div>
               </div>
 
+              <!-- 特色系统 -->
+              <div id="features" class="feature-card" data-aos="fade-up">
+                <h2>🚀 特色系统革新</h2>
+                <div class="feature-list">
+                  <h3>🔗 模组协同效应</h3>
+                  <ul>
+                    <li>
+                      TFC原始材料 → Create机械加工 → GregTech纳米合成 →
+                      AE2量子存储的全产业链
+                    </li>
+                    <li>利用Create动力系统驱动GregTech的高精度装配线</li>
+                    <li>通过AE2网络实现跨维度资源调度与TFC季节物资调配</li>
+                  </ul>
+
+                  <h3>🎮 游戏性增强</h3>
+                  <ul>
+                    <li>重新平衡的科技树（2000+合成配方优化）</li>
+                    <li>新增50+多方块结构兼容性适配</li>
+                    <li>整合版Ponder系统：包含四大模组的交互式教程</li>
+                  </ul>
+                </div>
+              </div>
               <!-- 科技树时间线 -->
               <div id="timeline" class="feature-card" data-aos="fade-up">
                 <h2>科技发展时间线</h2>
@@ -781,68 +915,14 @@
                   </li>
                 </ul>
               </div>
-
-              <!-- —— 视频预告 —— -->
-              <div id="video" class="feature-card" data-aos="fade-up">
-                <h2>官方宣传视频</h2>
-                <div class="video-trailer">
-                  <iframe
-                    src="https://player.bilibili.com/player.html?isOutside=true&aid=1301625648&bvid=BV1cu4m1g7QJ&cid=1467633832&p=1"
-                    scrolling="no"
-                    frameborder="no"
-                    framespacing="0"
-                    allowfullscreen="true"
-                  ></iframe>
-                </div>
-              </div>
-
-              <!-- —— 核心插件与模组 —— -->
-              <div id="mod" class="feature-card" data-aos="fade-up">
-                <h2>核心插件与模组</h2>
-                <div class="plugin-grid">
-                  <div class="plugin-item">
-                    <a
-                      href="https://github.com/TerraFirmaCraft/TerraFirmaCraft"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src="pics/TFC.webp" alt="TerraFirmaCraft" />
-                      <p>
-                        <strong>TFC</strong><br />重构原版生存，使其更加硬核
-                      </p>
-                    </a>
-                  </div>
-                  <div class="plugin-item">
-                    <a
-                      href="https://gregtechceu.github.io/GregTech-Modern/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src="pics/GregTech.webp" alt="GregTech" />
-                      <p><strong>GregTech</strong><br />老牌科技模组</p>
-                    </a>
-                  </div>
-                  <div class="plugin-item">
-                    <a
-                      href="https://appliedenergistics.org/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src="pics/AE2.webp" alt="AppliedEnergistics" />
-                      <p><strong>AE</strong><br />自动化与储存</p>
-                    </a>
-                  </div>
-                  <div class="plugin-item">
-                    <a
-                      href="https://www.bilibili.com/video/BV1o8QAY6E2P"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src="pics/Create.webp" alt="Create" />
-                      <p><strong>Create</strong><br />机械动力</p>
-                    </a>
-                  </div>
-                </div>
+              <!-- 服务器状态卡片 -->
+              <div id="status" class="feature-card" data-aos="fade-up">
+                <h2>实时服务器状态</h2>
+                <img
+                  src="https://api.mcstatus.io/v2/widget/java/6mc.ltd?theme=dark"
+                  alt="服务器状态"
+                  style="max-width: 100%; height: auto"
+                />
               </div>
 
               <!-- —— FAQ 新手指南 —— -->
@@ -1051,39 +1131,6 @@
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
-      });
-      // 时代背景配置
-      const eraMap = [
-        { range: [0, 25], era: "stone", label: "石器时代" },
-        { range: [25, 50], era: "steam", label: "蒸汽时代" },
-        { range: [50, 75], era: "electric", label: "电气时代" },
-        { range: [75, 100], era: "info", label: "信息时代" },
-      ];
-
-      document.querySelectorAll(".tech-slider").forEach((slider) => {
-        const background = slider
-          .closest(".feature-cell")
-          .querySelector(".era-background");
-        const eraMarker = slider
-          .closest(".feature-cell")
-          .querySelector(".era-marker span");
-
-        slider.addEventListener("input", (e) => {
-          const value = parseInt(e.target.value);
-
-          // 更新进度条视觉
-          eraMarker.parentElement.style.setProperty("--progress", `${value}%`);
-
-          // 更新背景和标签
-          const currentEra = eraMap.find(
-            (era) => value >= era.range[0] && value < era.range[1]
-          );
-          background.dataset.era = currentEra.era;
-          eraMarker.textContent = currentEra.label;
-
-          // 动态调整背景明暗
-          background.style.filter = `brightness(${60 + (value / 100) * 40}%)`;
-        });
       });
       const button = document.getElementById("language-button");
       const menu = document.getElementById("language-menu");
